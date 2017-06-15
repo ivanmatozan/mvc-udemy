@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav>
+    <a href="/">Home</a>
+    <a href="/post/index">Posts</a>
+    {% if currentUser %}
+        <a href="/item/index">Items</a>
+        <a href="/profile/show">Profile</a>
+        <a href="/logout">Log out</a>
+    {% else %}
+        <a href="/signup/new">Sign Up</a> or <a href="/login">Log in</a>
+    {% endif %}
+</nav>
+
+{% for message in flashMessages %}
+    <div class="alert alert-{{ message.type }}">
+        {{ message.body }}
+    </div>
+{% endfor %}
+
+{% block body %}
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+{% block footer %}
+{% endblock %}
+</body>
+</html>

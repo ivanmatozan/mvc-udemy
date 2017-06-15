@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block footer %}
+    <script src="/js/hideShowPassword.min.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#signup-form').validate({
+                rules: {
+                    name: 'required',
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: '/account/validate-email'
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        validPassword: true
+                    },
+//                    password_confirm: {
+//                        equalTo: '#password'
+//                    }
+                },
+                messages: {
+                    email: {
+                        remote: 'Email already taken.'
+                    }
+                }
+            });
+
+            // Show password toggle button
+            $('#password').hideShowPassword({
+                show: false,
+                innerToggle: 'focus'
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>Sign Up</h1>
+
+    {% if errors is not empty %}
+        <p>Errors:</p>
+
+        <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" action="/signup/create" id="signup-form">
+        <table>
+            <tr>
+                <td><label for="name">Name</label></td>
+                <td><input id="name" name="name" placeholder="Name" autofocus value="{{ user.name }}" required></td>
+            </tr>
+            <tr>
+                <td><label for="email">E-mail</label></td>
+                <td><input type="email" id="email" name="email" placeholder="E-mail" value="{{ user.email }}" required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password</label></td>
+                <td>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </td>
+            </tr>
+            {#<tr>#}
+                {#<td><label for="password-confirm">Confirm Password</label></td>#}
+                {#<td><input type="password" id="password-confirm" name="password_confirm" placeholder="Confirm Password" required></td>#}
+            {#</tr>#}
+        </table>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+{% endblock %}

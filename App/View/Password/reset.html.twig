@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset password{% endblock %}
+
+{% block footer %}
+    <script src="/js/hideShowPassword.min.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#password-form').validate({
+                rules: {
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        validPassword: true
+                    }
+                }
+            });
+
+            // Show password toggle button
+            $('#password').hideShowPassword({
+                show: false,
+                innerToggle: 'focus'
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>Reset password</h1>
+
+    {% if errors is not empty %}
+        <p>Errors:</p>
+
+        <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" action="/password/reset-password" id="password-form">
+
+        <input type="hidden" name="token" value="{{ token }}">
+
+        <table>
+            <tr>
+                <td><label for="password">Password</label></td>
+                <td>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit">Reset password</button>
+    </form>
+
+{% endblock %}

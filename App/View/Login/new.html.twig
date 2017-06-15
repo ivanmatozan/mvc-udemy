@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in{% endblock %}
+
+{% block body %}
+
+    <h1>Login in</h1>
+
+    <form action="/login/create" method="post">
+        <table>
+            <tr>
+                <td><label for="email">Email address</label></td>
+                <td><input id="email" type="email" name="email" placeholder="Email address" autofocus value="{{ email }}"></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password</label></td>
+                <td><input id="password" type="password" name="password" placeholder="Password"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <input type="checkbox" name="remember_me" {% if rememberMe %}checked="checked"{% endif %}> Remember me
+                    </label>
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit">Log in</button>
+        <a href="/password/forgot">Forgot password?</a>
+    </form>
+
+{% endblock %}

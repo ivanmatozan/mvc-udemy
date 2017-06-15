@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<h1>Welcome</h1>
+
+    <p>Index page</p>
+
+    {% if currentUser %}
+        <p>Hello {{ currentUser.name }}</p>
+    {% endif %}
+
+{% endblock %}
